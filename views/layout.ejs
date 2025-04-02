@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Members Only</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .message {
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+      }
+      .message-header {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      .member {
+        color: green;
+      }
+      .admin {
+        color: red;
+      }
+      .error {
+        color: red;
+      }
+      .success {
+        color: green;
+      }
+      nav ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        gap: 15px;
+      }
+      form {
+        margin: 20px 0;
+      }
+      textarea {
+        width: 100%;
+        min-height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="/">Inicio</a></li>
+        <% if (!currentUser) { %>
+        <li><a href="/sign-up">Registrarse</a></li>
+        <li><a href="/log-in">Iniciar sesión</a></li>
+        <% } else { %>
+        <li><a href="/log-out">Cerrar sesión</a></li>
+        <% if (currentUser.membership_status === 'non-member') { %>
+        <li><a href="/join-club">Unirse al club</a></li>
+        <% } %> <% if (!currentUser.is_admin) { %>
+        <li><a href="/become-admin">Convertirse en admin</a></li>
+        <% } %> <% } %>
+      </ul>
+    </nav>
+
+    <% if (errors && errors.length > 0) { %>
+    <div class="errors">
+      <% errors.forEach(error => { %>
+      <p class="error"><%= error.msg %></p>
+      <% }); %>
+    </div>
+    <% } %> <% if (messages && messages.length > 0) { %>
+    <div class="messages">
+      <% messages.forEach(message => { %>
+      <p class="success"><%= message.msg %></p>
+      <% }); %>
+    </div>
+    <% } %> <%- body %>
+  </body>
+</html>

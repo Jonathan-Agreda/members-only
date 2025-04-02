@@ -1,0 +1,41 @@
+<h1>Members Only</h1>
+
+<% if (currentUser) { %>
+<h2>Crear nuevo mensaje</h2>
+<form action="/create-message" method="POST">
+  <textarea name="message" required></textarea>
+  <button type="submit">Enviar</button>
+</form>
+<% } %>
+
+<h2>Mensajes</h2>
+<% if (messages.length === 0) { %>
+<p>No hay mensajes aún.</p>
+<% } else { %> <% messages.forEach(message => { %>
+<div class="message">
+  <div class="message-header">
+    <strong><%= message.username %></strong>
+    <% if (message.membership_status === 'member') { %>
+    <span class="member">(Miembro)</span>
+    <% } %> <% if (message.is_admin) { %>
+    <span class="admin">(Admin)</span>
+    <% } %>
+    <small><%= message.created_at.toLocaleString() %></small>
+    <% if (currentUser && currentUser.is_admin) { %>
+    <form
+      action="/delete-message/<%= message.id %>"
+      method="POST"
+      style="display: inline"
+    >
+      <button
+        type="submit"
+        style="color: red; background: none; border: none; cursor: pointer"
+      >
+        Eliminar
+      </button>
+    </form>
+    <% } %>
+  </div>
+  <p><%= message.content %></p>
+</div>
+<% }); %> <% } %>

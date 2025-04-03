@@ -28,8 +28,8 @@ app.use(
     cookie: {
       maxAge: 120000,
       httpOnly: true,
-      secure: true, // Solo HTTPS
-      sameSite: "none", // Necesario si usas otro dominio frontend
+      secure: false, // Problema si estás en desarrollo
+      sameSite: "lax",
     },
     rolling: true,
   })

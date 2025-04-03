@@ -1,15 +1,50 @@
-<h1>Iniciar sesión</h1>
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1>Iniciar Sesión</h1>
+        <nav>
+          <a href="/">Inicio</a>
+          <% if (!locals.currentUser) { %>
+          <a href="/sign-up">Registrarse</a>
+          <% } else { %>
+          <a href="/log-out">Cerrar Sesión</a>
+          <% } %>
+        </nav>
+      </header>
 
-<form action="/log-in" method="POST">
-  <div>
-    <label for="username">Nombre de usuario:</label>
-    <input type="text" id="username" name="username" required />
-  </div>
-  <div>
-    <label for="password">Contraseña:</label>
-    <input type="password" id="password" name="password" required />
-  </div>
-  <button type="submit">Iniciar sesión</button>
-</form>
+      <main>
+        <% if (error) { %>
+        <div class="alert alert-error"><%= error %></div>
+        <% } %> <% if (messages && messages.length > 0) { %>
+        <div class="alert alert-info"><%= messages[0] %></div>
+        <% } %>
 
-<p>¿No tienes una cuenta? <a href="/sign-up">Regístrate</a></p>
+        <form action="/log-in" method="POST" class="auth-form">
+          <div class="form-group">
+            <label for="username">Usuario:</label>
+            <input type="text" id="username" name="username" required />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required />
+          </div>
+
+          <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+        </form>
+
+        <div class="auth-links">
+          <p>¿No tienes una cuenta? <a href="/sign-up">Regístrate aquí</a></p>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

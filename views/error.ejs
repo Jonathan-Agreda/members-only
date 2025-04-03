@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Error</title>
+  </head>
+  <body>
+    <h1>Error</h1>
+    <% if (error.message) { %>
+    <p><%= error.message %></p>
+    <% } %> <% if (error.stack && process.env.NODE_ENV === 'development') { %>
+    <pre><%= error.stack %></pre>
+    <% } %>
+    <a href="/">Volver al inicio</a>
+  </body>
+</html>

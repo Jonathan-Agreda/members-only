@@ -1,31 +1,60 @@
-<h1>Registrarse</h1>
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro - Members Only</title>
+    <style>
+      .error {
+        color: red;
+      }
+      .form-group {
+        margin-bottom: 1rem;
+      }
+      label {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Registro</h1>
 
-<form action="/sign-up" method="POST">
-  <div>
-    <label for="username">Nombre de usuario:</label>
-    <input type="text" id="username" name="username" required minlength="3" />
-  </div>
-  <div>
-    <label for="password">Contraseña:</label>
-    <input
-      type="password"
-      id="password"
-      name="password"
-      required
-      minlength="6"
-    />
-  </div>
-  <div>
-    <label for="confirmPassword">Confirmar contraseña:</label>
-    <input
-      type="password"
-      id="confirmPassword"
-      name="confirmPassword"
-      required
-      minlength="6"
-    />
-  </div>
-  <button type="submit">Registrarse</button>
-</form>
+    <% if (error) { %>
+    <div class="error"><%= error %></div>
+    <% } %> <% if (errors && errors.length > 0) { %>
+    <div class="error">
+      <% errors.forEach(error => { %>
+      <p><%= error.msg %></p>
+      <% }); %>
+    </div>
+    <% } %> <% if (success) { %>
+    <div style="color: green"><%= success %></div>
+    <% } %>
 
-<p>¿Ya tienes una cuenta? <a href="/log-in">Inicia sesión</a></p>
+    <form action="/sign-up" method="POST">
+      <div class="form-group">
+        <label for="username">Nombre de usuario:</label>
+        <input type="text" id="username" name="username" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Contraseña (mínimo 6 caracteres):</label>
+        <input type="password" id="password" name="password" required />
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirmar contraseña:</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          required
+        />
+      </div>
+
+      <button type="submit">Registrarse</button>
+    </form>
+
+    <p>¿Ya tienes cuenta? <a href="/log-in">Inicia sesión aquí</a></p>
+  </body>
+</html>
